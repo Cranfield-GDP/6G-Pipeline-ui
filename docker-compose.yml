@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  backend:
+    image: udhay707/agentic-model-recommender-backend  # ✅ Pull backend from Docker Hub
+    ports:
+      - "8000:8000"
+    networks:
+      - chatbot-network
+
+  frontend:
+    image: udhay707/6g-pipeline-ui  # ✅ Pull frontend from Docker Hub
+    ports:
+      - "4330:4330"
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: "http://backend:8000"
+    networks:
+      - chatbot-network
+
+networks:
+  chatbot-network:
